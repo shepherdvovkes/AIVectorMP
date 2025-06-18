@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Vector Data Marketplace</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-slate-900 to-slate-800 text-white min-h-screen">
+
+  <!-- Header -->
+  <header class="w-full p-6 flex items-center justify-between bg-slate-900/80 shadow-xl sticky top-0 z-20">
+    <h1 class="text-3xl font-bold tracking-wide">AI Vector Data Marketplace</h1>
+    <nav class="space-x-6 text-lg font-medium hidden md:block">
+      <a href="#providers" class="hover:underline">Data Providers</a>
+      <a href="#buyers" class="hover:underline">Buyers</a>
+      <a href="#validators" class="hover:underline">Validators</a>
+      <a href="#demo" class="hover:underline">Live Demo</a>
+      <a href="#roadmap" class="hover:underline">Roadmap</a>
+      <a href="#docs" class="hover:underline">Developers</a>
+      <a href="#community" class="hover:underline">Community</a>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="w-full flex flex-col items-center mt-10 mb-6 px-2">
+    <h2 class="text-4xl font-extrabold mb-4 text-center drop-shadow-xl">Unlock the Value of Knowledge<br class="hidden md:block"/>— Privately, Trustlessly, Globally</h2>
+    <p class="max-w-2xl text-lg text-slate-300 text-center mb-8">A marketplace for vectorized data, verified AI answers, and privacy-preserving knowledge transfer — powered by Zero-Knowledge Proofs and blockchain rewards.</p>
+    <div class="flex flex-wrap gap-4 justify-center">
+      <a href="#providers" class="bg-blue-600 hover:bg-blue-700 px-7 py-3 rounded-2xl font-bold text-lg shadow-lg transition">I Have Data</a>
+      <a href="#buyers" class="bg-green-600 hover:bg-green-700 px-7 py-3 rounded-2xl font-bold text-lg shadow-lg transition">I Want Answers</a>
+      <a href="#validators" class="bg-yellow-400 hover:bg-yellow-500 px-7 py-3 rounded-2xl font-bold text-lg text-slate-900 shadow-lg transition">I Want to Validate</a>
+      <a href="#demo" class="bg-purple-700 hover:bg-purple-800 px-7 py-3 rounded-2xl font-bold text-lg shadow-lg transition">Try Live Demo</a>
+    </div>
+  </section>
+
+  <!-- Network Stats / Transparency -->
+  <section class="w-full max-w-5xl mx-auto mt-8 mb-12">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 bg-slate-900/70 rounded-2xl p-6 text-center shadow-lg">
+      <div>
+        <div class="text-3xl font-bold mb-1" id="datasets-count">124</div>
+        <div class="text-slate-300 text-sm">Datasets Listed</div>
+      </div>
+      <div>
+        <div class="text-3xl font-bold mb-1" id="answers-count">8,130</div>
+        <div class="text-slate-300 text-sm">Verified Answers</div>
+      </div>
+      <div>
+        <div class="text-3xl font-bold mb-1" id="validators-count">39</div>
+        <div class="text-slate-300 text-sm">Active Validators</div>
+      </div>
+      <div>
+        <div class="text-3xl font-bold mb-1" id="rewards-paid">₮2,005</div>
+        <div class="text-slate-300 text-sm">Rewards Paid</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Live Demo / Interactive Sandbox -->
+  <section id="demo" class="w-full max-w-3xl mx-auto mb-16 bg-gradient-to-br from-slate-800/80 to-blue-900/80 rounded-2xl p-8 shadow-lg">
+    <h3 class="text-2xl font-bold mb-2 text-blue-300 text-center">Try Live Demo</h3>
+    <p class="text-center mb-5 text-slate-300">Ask any question and get a ZK-verified AI answer instantly (Demo data, mock proof):</p>
+    <form id="demo-form" class="flex flex-col md:flex-row gap-3 items-center justify-center mb-3">
+      <input type="text" id="demo-question" placeholder="e.g. What is the capital of France?" class="w-full max-w-md px-4 py-2 rounded-xl text-black text-lg" />
+      <button type="submit" class="bg-purple-700 hover:bg-purple-800 px-6 py-2 rounded-xl font-bold shadow transition">Ask AI</button>
+    </form>
+    <div id="demo-result" class="bg-slate-900 rounded-xl px-5 py-4 text-lg text-green-400 font-mono hidden">
+      <!-- JS will fill result here -->
+    </div>
+    <div class="text-xs text-slate-400 mt-2 text-center">* This is a demo. Real cryptographic proofs will be integrated on mainnet.</div>
+    <script>
+      document.getElementById('demo-form').onsubmit = function(e) {
+        e.preventDefault();
+        const q = document.getElementById('demo-question').value;
+        const out = document.getElementById('demo-result');
+        out.innerHTML = "<b>AI Answer:</b> Paris\n<br><b>Proof:</b> <span class='text-blue-400'>ZK-Proof-MOCK-"+ Math.floor(Math.random()*100000) +"</span>";
+        out.classList.remove('hidden');
+      }
+    </script>
+  </section>
+
+  <!-- Features / Role Blocks -->
+  <section class="max-w-5xl mx-auto grid md:grid-cols-3 gap-8 mt-4 mb-16">
+    <!-- Providers Block -->
+    <div id="providers" class="rounded-2xl shadow-lg bg-gradient-to-br from-blue-800/80 to-slate-900/90 p-8 flex flex-col items-center">
+      <h3 class="text-2xl font-bold mb-3">For Data Providers</h3>
+      <p class="text-slate-200 mb-4 text-center">Monetize your unique datasets — embedding databases for text, images, medical, legal, sensor, or niche domains. Your data is never exposed, only cryptographically proven.</p>
+      <ul class="mb-5 text-left space-y-2">
+        <li>✓ Upload your vectorized data securely</li>
+        <li>✓ Set your own price and licensing terms</li>
+        <li>✓ Receive token rewards for every query</li>
+        <li>✓ Zero leakage risk: all queries are ZK-verified</li>
+      </ul>
+      <button class="mt-auto bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded-xl font-bold shadow transition opacity-60 cursor-not-allowed" disabled>Provider Onboarding: Coming Soon</button>
+    </div>
+    <!-- Buyers Block -->
+    <div id="buyers" class="rounded-2xl shadow-lg bg-gradient-to-br from-green-800/80 to-slate-900/90 p-8 flex flex-col items-center">
+      <h3 class="text-2xl font-bold mb-3">For Data Buyers</h3>
+      <p class="text-slate-200 mb-4 text-center">Get instant, verified, AI-powered answers to any question — without ever seeing the raw database. All results are zero-knowledge proven and auditable on-chain.</p>
+      <ul class="mb-5 text-left space-y-2">
+        <li>✓ Semantic search in law, science, business, or custom domains</li>
+        <li>✓ Proof-backed answers — privacy by default</li>
+        <li>✓ Transparent micro-payments per query</li>
+        <li>✓ Build smarter apps with trustless search APIs</li>
+      </ul>
+      <button class="mt-auto bg-green-600 hover:bg-green-700 px-6 py-2 rounded-xl font-bold shadow transition opacity-60 cursor-not-allowed" disabled>Buy Data: Coming Soon</button>
+    </div>
+    <!-- Validators Block -->
+    <div id="validators" class="rounded-2xl shadow-lg bg-gradient-to-br from-yellow-200/70 to-yellow-400/90 p-8 flex flex-col items-center text-slate-900">
+      <h3 class="text-2xl font-bold mb-3">For Validators</h3>
+      <p class="mb-4 text-center">Earn by running validator nodes: verify ZK-proofs and secure trustless search. Only <b>50 slots</b> available for the genesis launch!</p>
+      <ul class="mb-5 text-left space-y-2">
+        <li>✓ Stake tokens and run validator software</li>
+        <li>✓ Get paid for every proof you verify</li>
+        <li>✓ Community governance and dataset curation</li>
+        <li>✓ Transparent, open-source infrastructure</li>
+      </ul>
+      <button class="mt-auto bg-yellow-500 hover:bg-yellow-600 px-6 py-2 rounded-xl font-bold shadow transition opacity-60 cursor-not-allowed" disabled>Become Validator: Genesis Slots Opening Soon</button>
+    </div>
+  </section>
+
+  <!-- Roadmap -->
+  <section id="roadmap" class="max-w-5xl mx-auto mt-4 mb-20 bg-slate-900/90 p-8 rounded-2xl shadow-lg">
+    <h3 class="text-2xl font-bold mb-3 text-blue-200">Roadmap & Milestones</h3>
+    <ol class="space-y-2 list-decimal list-inside text-slate-200">
+      <li>Q3 2025: Testnet Launch, Provider Onboarding, Demo Marketplace</li>
+      <li>Q4 2025: Mainnet Beta, Validator Genesis Auction, Buyer Onboarding</li>
+      <li>Q1 2026: API/SDK for Developers, Tokenomics Upgrade, Governance Launch</li>
+      <li>Q2 2026: Enterprise Integrations, DID, Dataset Curation DAO</li>
+    </ol>
+    <div class="mt-4 flex flex-wrap gap-4">
+      <a href="#community" class="bg-blue-700 hover:bg-blue-800 px-6 py-2 rounded-xl font-bold shadow transition">Join Waitlist</a>
+      <a href="#community" class="bg-slate-700 hover:bg-slate-800 px-6 py-2 rounded-xl font-bold shadow transition">Newsletter Signup</a>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="max-w-5xl mx-auto mt-4 mb-20">
+    <h3 class="text-2xl font-bold mb-3 text-center text-slate-100">How It Works</h3>
+    <div class="flex flex-col md:flex-row gap-8">
+      <div class="flex-1 bg-slate-800/80 rounded-2xl p-6 shadow text-slate-200">
+        <h4 class="text-lg font-bold mb-2 text-blue-400">Step 1: Upload & Commit</h4>
+        <p class="mb-2">Data providers upload vectorized datasets, commit cryptographic root to blockchain.</p>
+        <h4 class="text-lg font-bold mb-2 text-green-400 mt-3">Step 2: Query & Prove</h4>
+        <p class="mb-2">Buyers submit queries; validators privately search and generate ZK-proofs of correct answers.</p>
+        <h4 class="text-lg font-bold mb-2 text-yellow-500 mt-3">Step 3: Verify & Reward</h4>
+        <p>On-chain contract verifies proof, provider/validator receive automatic rewards, and buyers get audit-backed results.</p>
+      </div>
+      <div class="flex-1 flex flex-col items-center justify-center">
+        <!-- Mocked explainer diagram (replace with SVG later) -->
+        <div class="w-full h-64 flex items-center justify-center bg-slate-700/40 rounded-xl shadow mt-6 md:mt-0">
+          <span class="text-slate-400 text-xl">[ZK Search Flow Diagram — COMING SOON]</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials & Use Cases -->
+  <section class="max-w-5xl mx-auto mt-4 mb-20">
+    <h3 class="text-2xl font-bold mb-4 text-center text-slate-100">Testimonials & Use Cases</h3>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="bg-slate-900/80 rounded-2xl p-5 shadow text-slate-300">
+        <p class="mb-3">“We monetized a private scientific dataset with zero risk — our raw data never left our servers.”</p>
+        <span class="font-bold text-blue-400">– Research Group, EU</span>
+      </div>
+      <div class="bg-slate-900/80 rounded-2xl p-5 shadow text-slate-300">
+        <p class="mb-3">“Our legal AI now delivers auditable, trustless answers for compliance reviews.”</p>
+        <span class="font-bold text-green-400">– Legaltech Startup</span>
+      </div>
+      <div class="bg-slate-900/80 rounded-2xl p-5 shadow text-slate-300">
+        <p class="mb-3">“As an early validator, I earn tokens for every proof — with full transparency and no data risk.”</p>
+        <span class="font-bold text-yellow-400">– Node Operator</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Security & Compliance -->
+  <section class="max-w-5xl mx-auto mt-4 mb-20 bg-slate-900/95 p-8 rounded-2xl shadow-lg">
+    <h3 class="text-2xl font-bold mb-3 text-red-300">Security & Privacy</h3>
+    <ul class="list-disc pl-6 space-y-1 text-slate-200">
+      <li>Your data never leaves your device unencrypted</li>
+      <li>Zero-Knowledge proofs guarantee you only get what you paid for</li>
+      <li>All transactions and proofs are auditable on-chain</li>
+      <li>Third-party code audits (coming soon)</li>
+    </ul>
+    <div class="mt-4">
+      <a href="#faq" class="bg-slate-700 hover:bg-slate-800 px-5 py-2 rounded-xl font-bold shadow transition">Read Security FAQ</a>
+      <a href="https://github.com/yourproject/repo" class="ml-4 bg-green-700 hover:bg-green-800 px-5 py-2 rounded-xl font-bold shadow transition">View Code on GitHub</a>
+    </div>
+  </section>
+
+  <!-- Developer/API Section -->
+  <section id="docs" class="max-w-5xl mx-auto mt-4 mb-20">
+    <h3 class="text-2xl font-bold mb-3 text-center text-slate-100">For Developers & Integrators</h3>
+    <div class="flex flex-col md:flex-row gap-8">
+      <div class="flex-1 bg-slate-800/80 rounded-2xl p-6 shadow">
+        <h4 class="font-bold text-lg mb-2 text-blue-400">Quickstart (API Example)</h4>
+        <pre class="bg-slate-900 p-3 rounded text-xs overflow-x-auto text-green-200 mb-3">curl -X POST https://api.yourmarketplace.com/query \
+  -d '{"embedding": [0.23, 0.12, ...], "dataset_id": "xyz"}'</pre>
+        <a href="https://docs.yourmarketplace.com" class="text-blue-300 hover:underline">See Full API Docs →</a>
+      </div>
+      <div class="flex-1 flex flex-col items-center justify-center">
+        <a href="https://github.com/yourproject/repo" class="bg-green-600 hover:bg-green-700 px-6 py-2 rounded-xl font-bold shadow transition mb-3">GitHub Repo</a>
+        <a href="https://discord.gg/yourproject" class="bg-purple-700 hover:bg-purple-800 px-6 py-2 rounded-xl font-bold shadow transition">Join Discord</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tokenomics / Rewards Calculator -->
+  <section class="max-w-5xl mx-auto mt-4 mb-20 bg-yellow-200/80 rounded-2xl p-8 shadow-lg text-slate-900">
+    <h3 class="text-2xl font-bold mb-4">Tokenomics & Rewards</h3>
+    <div class="flex flex-col md:flex-row gap-8 items-start">
+      <div class="flex-1">
+        <ul class="list-disc pl-6 space-y-1 mb-4">
+          <li>Validators earn tokens per verified proof</li>
+          <li>Providers get paid instantly per query</li>
+          <li>Buyers pay per answer — full price transparency</li>
+        </ul>
+        <div class="mt-2 text-xs text-slate-600">* Reward rates, fees, and emission schedule will be finalized at mainnet.</div>
+      </div>
+      <div class="flex-1">
+        <div class="bg-white rounded-xl p-5 shadow flex flex-col items-center">
+          <label for="sim-stake" class="font-bold mb-1">Simulate Validator Rewards</label>
+          <input id="sim-stake" type="range" min="100" max="5000" value="1000" step="100" class="w-52 mb-2">
+          <div><span id="sim-stake-val" class="font-mono text-xl">1000</span> tokens staked</div>
+          <div id="sim-earn" class="mt-2 text-lg font-bold text-green-600">Est. 210 tokens/month*</div>
+        </div>
+        <script>
+          const range = document.getElementById('sim-stake');
+          const out = document.getElementById('sim-stake-val');
+          const earn = document.getElementById('sim-earn');
+          range.oninput = function() {
+            out.innerText = this.value;
+            earn.innerText = "Est. " + Math.floor(this.value*0.21) + " tokens/month*";
+          }
+        </script>
+      </div>
+    </div>
+  </section>
+
+  <!-- Community & Social -->
+  <section id="community" class="max-w-5xl mx-auto mt-4 mb-20">
+    <h3 class="text-2xl font-bold mb-4 text-center text-slate-100">Community & Social</h3>
+    <div class="flex flex-wrap gap-6 justify-center">
+      <a href="https://discord.gg/yourproject" class="bg-purple-700 hover:bg-purple-800 px-6 py-2 rounded-xl font-bold shadow transition">Discord</a>
+      <a href="https://twitter.com/yourproject" class="bg-blue-500 hover:bg-blue-600 px-6 py-2 rounded-xl font-bold shadow transition">Twitter</a>
+      <a href="https://github.com/yourproject/repo" class="bg-slate-700 hover:bg-slate-800 px-6 py-2 rounded-xl font-bold shadow transition">GitHub</a>
+      <a href="mailto:hello@yourmarketplace.com" class="bg-slate-600 hover:bg-slate-700 px-6 py-2 rounded-xl font-bold shadow transition">Contact Us</a>
+    </div>
+    <div class="mt-6 text-center text-slate-400 text-sm">
+      Featured in: <span class="italic">[Media logos placeholder]</span>
+    </div>
+  </section>
+
+  <!-- Press & Research -->
+  <section class="max-w-5xl mx-auto mt-4 mb-16">
+    <h3 class="text-2xl font-bold mb-4 text-center text-slate-100">Press & Research</h3>
+    <div class="grid md:grid-cols-2 gap-8">
+      <div class="bg-slate-900/80 rounded-2xl p-5 shadow text-slate-300">
+        <span class="text-lg font-bold text-green-400">TechCrunch</span>
+        <p class="mt-2 mb-2">"A privacy revolution for AI and data marketplaces."</p>
+        <a href="#" class="text-blue-400 hover:underline">Read article &rarr;</a>
+      </div>
+      <div class="bg-slate-900/80 rounded-2xl p-5 shadow text-slate-300">
+        <span class="text-lg font-bold text-blue-400">arXiv</span>
+        <p class="mt-2 mb-2">"Zero-Knowledge Embedding Search: New Paradigms for Data Sovereignty."</p>
+        <a href="#" class="text-blue-400 hover:underline">See research &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="w-full py-8 text-center text-slate-400 text-sm bg-slate-900/80 mt-12">
+    (c) 2025 AI Vector Data Marketplace. Powered by Zero-Knowledge, Open Data, and the Trustless Future.<br>
+    <span class="italic">All product names/logos are trademarks of their respective owners.</span>
+  </footer>
+
+</body>
+</html>
