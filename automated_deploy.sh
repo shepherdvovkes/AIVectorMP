@@ -114,7 +114,10 @@ build_parachain() {
     cargo clean
     
     # Build runtime and node
-    cargo build --release --features runtime-benchmarks
+    # Some builds may not provide the optional `runtime-benchmarks` feature.
+    # Attempt to build with it first and fall back to a normal release build
+    # if the feature is unavailable.
+    cargo build --release --features runtime-benchmarks || cargo build --release
     
     if [ ! -f "./target/release/aivectormp-node" ]; then
         log_error "Parachain build failed"
