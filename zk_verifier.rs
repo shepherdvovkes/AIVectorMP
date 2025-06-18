@@ -3,11 +3,13 @@
 #[ink::contract]
 mod zk_verifier {
     use ink::storage::Mapping;
+    use ink::storage::traits::{SpreadLayout, PackedLayout, StorageLayout};
     use ink::prelude::vec::Vec;
     use ink::prelude::string::String;
     
     /// ZK Proof structure
-    #[derive(Debug, Clone, PartialEq, Eq)]
+    #[derive(Debug, Clone, PartialEq, Eq, SpreadLayout, PackedLayout)]
+    #[cfg_attr(feature = "std", derive(StorageLayout))]
     #[ink::scale_derive(Encode, Decode, TypeInfo)]
     pub struct ZKProof {
         pub proof_id: u64,
@@ -23,7 +25,8 @@ mod zk_verifier {
     }
 
     /// Proof status
-    #[derive(Debug, Clone, PartialEq, Eq)]
+    #[derive(Debug, Clone, PartialEq, Eq, SpreadLayout, PackedLayout)]
+    #[cfg_attr(feature = "std", derive(StorageLayout))]
     #[ink::scale_derive(Encode, Decode, TypeInfo)]
     pub enum ProofStatus {
         Pending,
@@ -33,7 +36,8 @@ mod zk_verifier {
     }
 
     /// Verification key information
-    #[derive(Debug, Clone, PartialEq, Eq)]
+    #[derive(Debug, Clone, PartialEq, Eq, SpreadLayout, PackedLayout)]
+    #[cfg_attr(feature = "std", derive(StorageLayout))]
     #[ink::scale_derive(Encode, Decode, TypeInfo)]
     pub struct VerificationKey {
         pub key_hash: [u8; 32],
@@ -44,7 +48,8 @@ mod zk_verifier {
     }
 
     /// Challenge information
-    #[derive(Debug, Clone, PartialEq, Eq)]
+    #[derive(Debug, Clone, PartialEq, Eq, SpreadLayout, PackedLayout)]
+    #[cfg_attr(feature = "std", derive(StorageLayout))]
     #[ink::scale_derive(Encode, Decode, TypeInfo)]
     pub struct Challenge {
         pub challenge_id: u64,
@@ -58,7 +63,8 @@ mod zk_verifier {
     }
 
     /// Challenge status
-    #[derive(Debug, Clone, PartialEq, Eq)]
+    #[derive(Debug, Clone, PartialEq, Eq, SpreadLayout, PackedLayout)]
+    #[cfg_attr(feature = "std", derive(StorageLayout))]
     #[ink::scale_derive(Encode, Decode, TypeInfo)]
     pub enum ChallengeStatus {
         Active,
@@ -514,17 +520,23 @@ mod zk_verifier {
 
         fn calculate_proof_hash(&self, proof: &ZKProof) -> [u8; 32] {
             // Calculate hash of proof for payment completion
-            // This would typically include proof data, public inputs, etc.
-            let mut hasher = ink::env::hash::Keccak256::new();
-            hasher.update(&proof.proof_data);
-            hasher.update(&proof.public_inputs);
-            hasher.finish().into()
+            use ink::env::hash::{Keccak256, HashOutput};
+
+            let mut input = Vec::new();
+            input.extend_from_slice(&proof.proof_data);
+            input.extend_from_slice(&proof.public_inputs);
+
+            let mut output = <Keccak256 as HashOutput>::Type::default();
+            ink::env::hash_bytes::<Keccak256>(&input, &mut output);
+            output.into()
         }
 
         fn hash_data(&self, data: &[u8]) -> [u8; 32] {
-            let mut hasher = ink::env::hash::Keccak256::new();
-            hasher.update(data);
-            hasher.finish().into()
+            use ink::env::hash::{Keccak256, HashOutput};
+
+            let mut output = <Keccak256 as HashOutput>::Type::default();
+            ink::env::hash_bytes::<Keccak256>(data, &mut output);
+            output.into()
         }
 
         // Cross-contract call helpers (would be actual cross-contract calls)

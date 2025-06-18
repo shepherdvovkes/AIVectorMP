@@ -3,11 +3,13 @@
 #[ink::contract]
 mod payment_manager {
     use ink::storage::Mapping;
+    use ink::storage::traits::{SpreadLayout, PackedLayout, StorageLayout};
     use ink::prelude::vec::Vec;
     use ink::prelude::string::String;
     
     /// Query payment information
-    #[derive(Debug, Clone, PartialEq, Eq)]
+    #[derive(Debug, Clone, PartialEq, Eq, SpreadLayout, PackedLayout)]
+    #[cfg_attr(feature = "std", derive(StorageLayout))]
     #[ink::scale_derive(Encode, Decode, TypeInfo)]
     pub struct Payment {
         pub query_id: u64,
@@ -20,7 +22,8 @@ mod payment_manager {
     }
 
     /// Payment status
-    #[derive(Debug, Clone, PartialEq, Eq)]
+    #[derive(Debug, Clone, PartialEq, Eq, SpreadLayout, PackedLayout)]
+    #[cfg_attr(feature = "std", derive(StorageLayout))]
     #[ink::scale_derive(Encode, Decode, TypeInfo)]
     pub enum PaymentStatus {
         Pending,
@@ -30,7 +33,8 @@ mod payment_manager {
     }
 
     /// Escrow information
-    #[derive(Debug, Clone, PartialEq, Eq)]
+    #[derive(Debug, Clone, PartialEq, Eq, SpreadLayout, PackedLayout)]
+    #[cfg_attr(feature = "std", derive(StorageLayout))]
     #[ink::scale_derive(Encode, Decode, TypeInfo)]
     pub struct Escrow {
         pub user: AccountId,
