@@ -2,12 +2,14 @@
 
 #[ink::contract]
 mod dataset_registry {
-    use ink::storage::Mapping;
+    use ink::storage::{Mapping};
+    use ink::storage::traits::{SpreadLayout, PackedLayout, StorageLayout};
     use ink::prelude::vec::Vec;
     use ink::prelude::string::String;
     
     /// Dataset information structure
-    #[derive(Debug, Clone, PartialEq, Eq)]
+    #[derive(Debug, Clone, PartialEq, Eq, SpreadLayout, PackedLayout)]
+    #[cfg_attr(feature = "std", derive(StorageLayout))]
     #[ink::scale_derive(Encode, Decode, TypeInfo)]
     pub struct Dataset {
         pub id: u64,
