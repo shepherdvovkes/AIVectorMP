@@ -1,0 +1,39 @@
+[package]
+name = "ai_vector_blockchain_contracts"
+version = "1.0.0"
+authors = ["AI Vector Blockchain Team"]
+edition = "2021"
+
+[dependencies]
+ink = { version = "5.0.0", default-features = false }
+
+[lib]
+name = "ai_vector_blockchain_contracts"
+path = "lib.rs"
+crate-type = [
+    # Used for normal contract Wasm blobs.
+    "cdylib",
+]
+
+[features]
+default = ["std"]
+std = [
+    "ink/std",
+]
+ink-as-dependency = []
+
+[profile.release]
+panic = "abort"
+lto = true
+opt-level = "z"
+overflow-checks = true
+
+# The following profiles are used for cross-contract calls
+[profile.release.package.dataset_registry]
+codegen-units = 1
+
+[profile.release.package.payment_manager]
+codegen-units = 1
+
+[profile.release.package.zk_verifier]
+codegen-units = 1
