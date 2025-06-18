@@ -1,0 +1,49 @@
+{
+  "name": "ai-vector-blockchain-contracts",
+  "version": "1.0.0",
+  "description": "Smart contracts for AI Vector Blockchain with ZK Search on Polkadot",
+  "main": "deployment/deploy.js",
+  "scripts": {
+    "build": "npm run build:all",
+    "build:all": "npm run build:dataset && npm run build:payment && npm run build:zk",
+    "build:dataset": "cd contracts/dataset_registry && cargo contract build",
+    "build:payment": "cd contracts/payment_manager && cargo contract build", 
+    "build:zk": "cd contracts/zk_verifier && cargo contract build",
+    "deploy:local": "node deployment/deploy.js '//Alice' --local",
+    "deploy:testnet": "node deployment/deploy.js",
+    "deploy:rococo": "node deployment/deploy.js '//Alice' --testnet",
+    "test": "npm run test:contracts",
+    "test:contracts": "cd contracts && cargo test",
+    "clean": "npm run clean:all",
+    "clean:all": "cd contracts && find . -name target -type d -exec rm -rf {} + 2>/dev/null || true"
+  },
+  "keywords": [
+    "polkadot",
+    "substrate", 
+    "smart-contracts",
+    "ink",
+    "zero-knowledge",
+    "blockchain",
+    "ai",
+    "vector-search"
+  ],
+  "author": "AI Vector Blockchain Team",
+  "license": "MIT",
+  "dependencies": {
+    "@polkadot/api": "^10.11.2",
+    "@polkadot/api-contract": "^10.11.2",
+    "@polkadot/keyring": "^12.6.2",
+    "@polkadot/util": "^12.6.2",
+    "@polkadot/util-crypto": "^12.6.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/ai-vector-blockchain"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
