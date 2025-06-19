@@ -5,7 +5,7 @@ authors = ["AI Vector Blockchain Team"]
 edition = "2021"
 
 [dependencies]
-ink = { version = "5.0.0", default-features = false }
+ink = { version = "5.0.0", default-features = false, features = ["std", "derive"] }
 
 [lib]
 name = "ai_vector_blockchain_contracts"
